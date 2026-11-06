@@ -1,0 +1,270 @@
+{% doc %}
+  @prompt
+    Create an editorial-style homepage book feature for Sarah Bloom’s “Stop Forcing Start Becoming,” represented by this Google Books page: https://books.google.com/books?hl=en&lr=&id=L8XCEQAAQBAJ&oi=fnd&pg=PT10&ots=blUYKoa7X2&sig=yI6i6A41DoL74K_iE36fn6pvh10#v=onepage&q&f=false . Use a refined magazine-like layout with a prominent book cover, small “Featured read” label, editable title and author, a short editable editorial introduction, and a “Explore the book” button linking to that exact URL. Match the theme’s existing typography and colors, with a spacious side-by-side desktop layout and stacked mobile layout. Provide a cover image picker; the supplied Google Books page must not be used as an image source. Do not invent quotations, book contents, or endorsements. Keep the introductory text neutral and editable until verified details are supplied.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-book-feature-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    color: #030302;
+    background: #edebe7;
+    padding: clamp(28px, 6vw, 76px);
+    box-sizing: border-box;
+  }
+
+  .ai-book-feature-{{ ai_gen_id }}__inner {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+    gap: clamp(36px, 8vw, 120px);
+    align-items: center;
+  }
+
+  .ai-book-feature-{{ ai_gen_id }}__visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .ai-book-feature-{{ ai_gen_id }}__cover {
+    width: min(100%, 410px);
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    display: block;
+    box-shadow: 0 20px 48px rgba(3, 3, 2, 0.18);
+  }
+
+  .ai-book-feature-{{ ai_gen_id }}__placeholder {
+    width: min(100%, 410px);
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+    background: #d3cec5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-book-feature-{{ ai_gen_id }}__placeholder svg {
+    width: 100%;
+    height: 100%;
+    color: #746e65;
+  }
+
+  .ai-book-feature-{{ ai_gen_id }}__copy {
+    max-width: 620px;
+  }
+
+  .ai-book-feature-{{ ai_gen_id }}__eyebrow {
+    margin: 0 0 24px;
+    font-family: var(--font-body--family, sans-serif);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    line-height: 1.4;
+    text-transform: uppercase;
+    color: #514d47;
+  }
+
+  .ai-book-feature-{{ ai_gen_id }}__title {
+    margin: 0;
+    color: #030302;
+    font-family: var(--font-heading--family, sans-serif);
+    font-size: clamp(38px, 5.3vw, 74px);
+    font-weight: 600;
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+    text-wrap: balance;
+  }
+
+  .ai-book-feature-{{ ai_gen_id }}__author {
+    margin: 22px 0 0;
+    color: #030302;
+    font-family: var(--font-body--family, sans-serif);
+    font-size: 17px;
+    line-height: 1.45;
+  }
+
+  .ai-book-feature-{{ ai_gen_id }}__intro {
+    margin: 30px 0 0;
+    max-width: 48ch;
+    color: #34312d;
+    font-family: var(--font-body--family, sans-serif);
+    font-size: 16px;
+    line-height: 1.75;
+  }
+
+  .ai-book-feature-{{ ai_gen_id }}__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    margin-top: 34px;
+    padding: 0 25px;
+    border: 1px solid #030302;
+    border-radius: 2px;
+    background: #030302;
+    color: #ffffff;
+    font-family: var(--font-body--family, sans-serif);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 160ms ease, color 160ms ease;
+  }
+
+  .ai-book-feature-{{ ai_gen_id }}__link:hover {
+    background: transparent;
+    color: #030302;
+  }
+
+  .ai-book-feature-{{ ai_gen_id }}__link:focus-visible {
+    outline: 2px solid #030302;
+    outline-offset: 4px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-book-feature-{{ ai_gen_id }} {
+      padding: 32px 22px 40px;
+    }
+
+    .ai-book-feature-{{ ai_gen_id }}__inner {
+      grid-template-columns: 1fr;
+      gap: 34px;
+    }
+
+    .ai-book-feature-{{ ai_gen_id }}__visual {
+      order: 0;
+    }
+
+    .ai-book-feature-{{ ai_gen_id }}__cover,
+    .ai-book-feature-{{ ai_gen_id }}__placeholder {
+      width: min(76%, 330px);
+    }
+
+    .ai-book-feature-{{ ai_gen_id }}__copy {
+      max-width: none;
+    }
+
+    .ai-book-feature-{{ ai_gen_id }}__eyebrow {
+      margin-bottom: 16px;
+    }
+
+    .ai-book-feature-{{ ai_gen_id }}__title {
+      font-size: clamp(38px, 11vw, 58px);
+    }
+
+    .ai-book-feature-{{ ai_gen_id }}__intro {
+      margin-top: 22px;
+      font-size: 15px;
+    }
+
+    .ai-book-feature-{{ ai_gen_id }}__link {
+      margin-top: 26px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ai-book-feature-{{ ai_gen_id }}__link {
+      transition: none;
+    }
+  }
+{% endstyle %}
+
+<section class="ai-book-feature-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-book-feature-{{ ai_gen_id }}__inner">
+    <div class="ai-book-feature-{{ ai_gen_id }}__visual">
+      {% if block.settings.cover_image != blank %}
+        <img
+          class="ai-book-feature-{{ ai_gen_id }}__cover"
+          src="{{ block.settings.cover_image | image_url: width: 1000 }}"
+          alt="{{ block.settings.cover_image.alt | default: block.settings.book_title | escape }}"
+          loading="lazy"
+          width="{{ block.settings.cover_image.width }}"
+          height="{{ block.settings.cover_image.height }}"
+        >
+      {% else %}
+        <div class="ai-book-feature-{{ ai_gen_id }}__placeholder" aria-label="Add the book cover image in block settings">
+          {{ 'image' | placeholder_svg_tag }}
+        </div>
+      {% endif %}
+    </div>
+    <div class="ai-book-feature-{{ ai_gen_id }}__copy">
+      <p class="ai-book-feature-{{ ai_gen_id }}__eyebrow">{{ block.settings.label | escape }}</p>
+      <h2 class="ai-book-feature-{{ ai_gen_id }}__title">{{ block.settings.book_title | escape }}</h2>
+      <p class="ai-book-feature-{{ ai_gen_id }}__author">{{ block.settings.author | escape }}</p>
+      <div class="ai-book-feature-{{ ai_gen_id }}__intro">{{ block.settings.introduction | escape | newline_to_br }}</div>
+      <a class="ai-book-feature-{{ ai_gen_id }}__link" href="https://books.google.com/books?hl=en&amp;lr=&amp;id=L8XCEQAAQBAJ&amp;oi=fnd&amp;pg=PT10&amp;ots=blUYKoa7X2&amp;sig=yI6i6A41DoL74K_iE36fn6pvh10#v=onepage&amp;q&amp;f=false" target="_blank" rel="noopener noreferrer">
+        {{ block.settings.button_label | escape }}
+      </a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Editorial book feature",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Book details"
+    },
+    {
+      "type": "image_picker",
+      "id": "cover_image",
+      "label": "Cover image"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Feature label",
+      "default": "Featured read"
+    },
+    {
+      "type": "text",
+      "id": "book_title",
+      "label": "Book title",
+      "default": "Stop Forcing Start Becoming"
+    },
+    {
+      "type": "text",
+      "id": "author",
+      "label": "Author",
+      "default": "Sarah Bloom"
+    },
+    {
+      "type": "textarea",
+      "id": "introduction",
+      "label": "Editorial introduction",
+      "default": "Discover Stop Forcing Start Becoming by Sarah Bloom. Explore the book and its details at Google Books."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Explore the book"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Editorial book feature"
+    }
+  ],
+  "tag": null,
+  "class": "editorial-book-feature"
+}
+{% endschema %}
